@@ -11,8 +11,9 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /etc/ngnix/vhost.d
+      - certs:/etc/nginx/certs:ro
       - /usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d:rw
     labels:
       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
     networks:
@@ -24,6 +25,7 @@ services:
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/etc/nginx/certs:rw
     volumes_from:
       - nginx-proxy:rw
     environment:
@@ -49,4 +51,8 @@ services:
 
 networks:
   proxy-network:
+
+volumes:
+  certs:
+  vhost:
 
