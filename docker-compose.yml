@@ -1,0 +1,57 @@
+version: '3.7'
+
+services:
+
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: jwilder/nginx-proxy:alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - certs:/etc/ngnix/certs:ro
+      - /etc/ngnix/vhost.d
+      - /usr/share/nginx/html
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+    networks:
+      - proxy-network
+
+  letsencrypt:
+    container_name: letsencrypt
+    image: jrcs/letsencrypt-nginx-proxy-companion:2.2.8
+    restart: always
+    volumes:
+      - certs:/etc/ngnix/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes_from:
+      - nginx-proxy:rw
+    environment:
+      - DEFAULT_EMAIL=darvak8@gmail.com # Cambia por tu dirección de correo electrónico
+    networks:
+      - proxy-network
+
+  chatbot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chatbot
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=18.119.121.147 # Cambia por tu dominio
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=18.119.121.147 # Cambia por tu dominio
+      - LETSENCRYPT_EMAIL=darvak8@gmail.com # Cambia por tu dirección de correo electrónico
+    networks:
+      - proxy-network
+
+
+volumes:
+  certs:
+
+networks:
+  proxy-network:
+    external: true
