@@ -11,7 +11,6 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - certs:/etc/ngnix/certs:rw
       - /etc/ngnix/vhost.d
       - /usr/share/nginx/html
     labels:
@@ -24,7 +23,6 @@ services:
     image: jrcs/letsencrypt-nginx-proxy-companion:2.2.8
     restart: always
     volumes:
-      - certs:/etc/ngnix/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
     volumes_from:
       - nginx-proxy:rw
@@ -47,10 +45,6 @@ services:
       - LETSENCRYPT_EMAIL=darvak8@gmail.com # Cambia por tu dirección de correo electrónico
     networks:
       - proxy-network
-
-
-volumes:
-  certs:
 
 networks:
   proxy-network:
