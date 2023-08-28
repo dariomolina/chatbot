@@ -61,7 +61,7 @@ services:
       - LETSENCRYPT_HOST=terms-and-conditions.visuali.shop # Cambia por tu dominio
       - LETSENCRYPT_EMAIL=darvak8@gmail.com # Cambia por tu dirección de correo electrónico
     volumes:
-      - ./terms-and-conditions/terms-and-conditions.html:/usr/share/nginx/html
+      - ./terms-and-conditions/terms-and-conditions.html:/usr/share/nginx/html/index.html
     networks:
       - proxy-network
 
