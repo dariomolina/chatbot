@@ -1,0 +1,28 @@
+function remove_loader() {
+	let loader = document.getElementById("loader");
+	// remove loader element
+	loader.parentNode.removeChild(loader);
+	audio.play();
+}
+
+const second = 1000;
+const minute = second * 60;
+const hour = minute * 60;
+const day = hour * 24;
+
+const countDown = new Date("Dec 30, 2023 21:00:00").getTime();
+
+x = setInterval(function () {
+	const now = new Date().getTime();
+	const distance = countDown - now;
+
+	document.getElementById("days").innerHTML = Math.floor(distance / day);
+	document.getElementById("hours").innerHTML = Math.floor((distance % day) / hour);
+	document.getElementById("minutes").innerHTML = Math.floor((distance % hour) / minute);
+	document.getElementById("seconds").innerHTML = Math.floor((distance % minute) / second);
+
+	if (distance < 0) {
+		clearInterval(x);
+		document.getElementById("countdown").innerHTML = "<div class='text-center fs-2'>¡ES MI CUMPLEAÑOS!</b>";
+	}
+}, second);

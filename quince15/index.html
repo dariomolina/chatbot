@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- TODO:  -->
+<!-- AÑADIR AL CALENDARIO???? -->
+<!-- RECORDATORIO POR SMS O WHATSAPP -->
+<!-- FUNCIONALIDAD PARA FOTOS DESPUÉS DEL EVENTO -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, shrink-to-fit=no" />
+
+    <!-- EVITA EL CACHE -->
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Last-Modified" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <!-- TITULO PÁGINA -->
+    <title>Modelo - XV estándar</title>
+    <!-- ESTILOS TARJETA -->
+    <link rel="stylesheet" href="css/styles.css%3Fv=14.css">
+
+    <!-- Agrega estos datos entre las etiquetas <head> de tu sitio -->
+    <meta name="description" content="Tarjetas Cool te invita a celebrar los 15 años de Antonella." />
+
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content=">Modelo - XV estándar" />
+    <meta itemprop="description" content="Tarjetas Cool te invita a celebrar los 15 años de Antonella." />
+    <meta itemprop="image" content="https://www.tarjetas.cool/modelos/quince/quince15/img/share/500x500.jpg" />
+
+    <!-- Twitter Card data -->
+    <!--meta name="twitter:card" content="summary_large_image"-->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@tarjetas_cool" />
+    <meta name="twitter:title" content=">Modelo - XV estándar" />
+    <meta name="twitter:description" content="Tarjetas Cool te invita a celebrar los 15 años de Antonella." />
+    <meta name="twitter:image" content="https://www.tarjetas.cool/modelos/quince/quince15/img/share/500x500.jpg" />
+
+    <meta property="og:title" content=">Modelo - XV estándar">
+    <meta property="og:site_name" content="Tarjetas Cool">
+    <meta property="og:url" content=https://www.tarjetas.cool>
+    <meta property="og:description" content="Tarjetas Cool te invita a celebrar los 15 años de Antonella.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.tarjetas.cool/modelos/quince/quince15/img/share/500x500.jpg">
+
+    <link rel="icon" type="image/png" href="https://www.tarjetas.cool/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="https://www.tarjetas.cool/favicon-16x16.png" sizes="16x16" />
+
+<body>
+
+    <div id="loader" class="d-flex h-100 text-center">
+        <div class="cover-container d-flex mx-auto">
+            <div class="px-3 my-auto row justify-content-center">
+                <img src="img/logo_animado.gif" class="mb-0 col-12" style="width: 80%; max-width: 250px;" />
+                <p class="mt-4 my-0 py-0 text-muted fs-3 text-info">Esta tarjeta contiene audio.
+                </p>
+                <p class="mt-0 my-0 py-0 text-muted fs-3">Ajusta el volumen de tu dispositivo.</p>
+                <button class="mt-4 boton-loader" role="button" onclick="remove_loader();">Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="contenedor">
+
+        <div id="contenedor_tarjeta">
+            <!-- <div id="fondo_imagenes">
+                <img id="imagenes" class="imagenes" src="img/1.jpg" alt="personaje" class="img-bg" />
+            </div> -->
+            <img src="img/esquina_rosas.png" width="30%" id="esquinero-tarjeta-izquierda" />
+            <img src="img/esquina_rosas.png" width="30%" id="esquinero-tarjeta-derecha" />
+            <video id="fondo_imagenes" autoplay loop muted playsinline>
+                <source src="img/videofotos.mp4" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+            <div id="fondo_contenido">
+
+                <!-- <div id="cinta_2" class="d-flex justify-content-center">
+                <img id="cinta2" src="img/cinta2.png" />
+            </div> -->
+
+                <div id="contenedor_nombre_subtitulo" class="d-flex justify-content-center">
+
+                    <p id="nombre">Antonella</p>
+
+                    <!-- <div id="subtitulo_nombre">
+                    CUMPLE 1 AÑO
+                </div> -->
+                </div>
+
+
+
+                <div id="mensaje">
+                    <p> «Mi vida es como un cuento de hadas, 
+                        <br>
+                        llena de alegrías y sorpresas inesperadas,
+                        <br>
+                        y ahora me presento como una princesa
+                        <br>
+                        para invitarte a mis quince primaveras.»
+
+
+                    </p>
+                    <hr class="mx-4 mb-4">
+                    <p class="lh-1 fs-1 pt-2">Estás invitado a celebrar
+                        <br>
+                        LOS <span>15</span> DE ANTO.
+                    </p>
+                </div>
+
+                <img id="foto" src="img/foto1.jpg%3Fv=13" />
+
+                <!-- <audio id="audio" controls controlsList="nodownload">
+                    <source src="sounds/audio.mp3" type="audio/mpeg"> -->
+                    <!-- <source src="sounds/audio.ogg" type="audio/ogg"> -->
+                <!-- </audio> -->
+
+
+                <p id="fecha" class="fuente-motivo">
+                    Sábado 30 de Diciembre.
+                </p>
+                <hr id="division_fecha_hora">
+                <p id="hora" class="fuente-motivo">
+                    21:00 Hrs
+                </p>
+
+
+                <p id="direccion">Salón de Eventos SANTÉ Avellaneda. <br> Av. Bartolomé Mitre 1784, Avellaneda, GBA.</p>
+                <button class="boton boton_como_llegar mx-3" data-bs-toggle="modal" data-bs-target="#modalMapa"
+                    role="button">
+                    <i class="bi bi-pin-map-fill mx-2"></i>
+                    <span class="fuente-motivo">¿CÓMO LLEGAR?</span>
+                    <i class="bi bi-pin-map-fill mx-2"></i>
+                </button>
+
+
+                <ul id="countdown" class="text-white row px-0 mx-0 mx-auto">
+                    <li class="col"><span id="days"></span>Días</li>
+                    <li class="col"><span id="hours"></span>Horas</li>
+                    <li class="col"><span id="minutes"></span>Minutos</li>
+                    <li class="col"><span id="seconds"></span>Segundos</li>
+                </ul>
+
+                <audio id="audio" controls controlsList="nodownload">
+                    <source src="sounds/audio.mp3" type="audio/mpeg">
+                    <!-- <source src="sounds/audio.ogg" type="audio/ogg"> -->
+                </audio>
+
+                <img id="cinta" src="img/cinta.png" />
+
+            </div>
+            <div id="mensaje_confirmar_asistencia">Por favor confirmar presencia antes del 9 de Diciembre.</div>
+
+            <div id="confirmar_asistencia"
+                onclick="window.open('https://wa.me/5491156223007?text=*¡Hola!* _Confirmada asistencia para el *Sábado 30 de Diciembre* para la celebración de 15 años de Anto_. 🌹')">
+                <i class="bi bi-whatsapp mx-2"></i>
+                Toca para confirmar asistencia
+                <i class="bi bi-whatsapp mx-2"></i>
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <div id="footer_tarjetas_cool" class="w-100 text-center">
+        <i>
+            <a href="https://www.tarjetas.cool" target="_blank">www.tarjetas.cool</a>
+        </i>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalMapa" tabindex="-1" aria-labelledby="modalMapaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalMapaLabel">Salón de Eventos SANTÉ Avellaneda.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <iframe id="iframe_mapa" class="w-100"
+                        src="https://maps.google.com/maps?q=SANTÉ Avellaneda, AMD, Av. Bartolomé Mitre 1784, B1873 Avellaneda, Provincia de Buenos Aires&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><br>
+
+
+                </div>
+                <div class="modal-footer row mx-1">
+                    <a href="https://maps.google.com/maps?q=SANTÉ Avellaneda, AMD, Av. Bartolomé Mitre 1784, B1873 Avellaneda, Provincia de Buenos Aires&t=&z=15&ie=UTF8"
+                        target="_blank" button" class="col-5 boton boton_abrir_mapa_en_google">Abrir en
+                        Google</a>
+                    <button type="button" class="col-3 boton" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="js/card.js%3Fv=15" type="text/javascript"></script>
+</body>
+
+</html>
