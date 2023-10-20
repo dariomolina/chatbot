@@ -29,7 +29,7 @@ services:
     volumes_from:
       - nginx-proxy:rw
     environment:
-      - DEFAULT_EMAIL=darvak8@gmail.com # Cambia por tu dirección de correo electrónico
+      - DEFAULT_EMAIL=darvak8@gmail.com # Change
     networks:
       - proxy-network
 
@@ -41,10 +41,10 @@ services:
     expose:
       - "80"
     environment:
-      - VIRTUAL_HOST=www.visuali.shop, visuali.shop # Cambia por tu dominio
+      - VIRTUAL_HOST=www.visuali.shop, visuali.shop # Change
       - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=www.visuali.shop, visuali.shop # Cambia por tu dominio
-      - LETSENCRYPT_EMAIL=darvak8@gmail.com # Cambia por tu dirección de correo electrónico
+      - LETSENCRYPT_HOST=www.visuali.shop, visuali.shop # Change
+      - LETSENCRYPT_EMAIL=darvak8@gmail.com # Change
     volumes:
       - ./app:/app/
     networks:
@@ -56,28 +56,12 @@ services:
     expose:
       - "80"
     environment:
-      - VIRTUAL_HOST=terms-and-conditions.visuali.shop # Cambia por tu dominio
+      - VIRTUAL_HOST=terms-and-conditions.visuali.shop # Change
       - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=terms-and-conditions.visuali.shop # Cambia por tu dominio
-      - LETSENCRYPT_EMAIL=darvak8@gmail.com # Cambia por tu dirección de correo electrónico
+      - LETSENCRYPT_HOST=terms-and-conditions.visuali.shop # Change
+      - LETSENCRYPT_EMAIL=darvak8@gmail.com # Change
     volumes:
       - ./terms-and-conditions/terms-and-conditions.html:/usr/share/nginx/html/index.html
-    networks:
-      - proxy-network
-
-  invitation:
-    container_name: invitation
-    image: nginx:alpine
-    expose:
-      - "80"
-    environment:
-      - VIRTUAL_HOST=emily.visuali.shop # Cambia por tu dominio
-      - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=emily.visuali.shop # Cambia por tu dominio
-      - LETSENCRYPT_EMAIL=darvak8@gmail.com # Cambia por tu dirección de correo electrónico
-    volumes:
-      - ./quince15/default.conf:/etc/nginx/conf.d/default.conf
-      - ./quince15/:/usr/share/nginx/html/quince15
     networks:
       - proxy-network
 
