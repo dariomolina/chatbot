@@ -2,7 +2,7 @@ name: deploy
 run-name: first deploy
 on: [push]
 jobs:
-  first-deploy
+  first-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
