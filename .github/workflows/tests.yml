@@ -63,7 +63,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build docker-compose
-        run: docker-compose up -d chatbot --build
+        run: docker-compose up -d --build chatbot
 
       - name: Ejecuta tests en el contenedor
         id: run_tests
