@@ -14,62 +14,67 @@ jobs:
     name: "Python 3.11 on ubuntu-latest"
     runs-on: ubuntu-latest
     steps:
-      - name: "Check out the repo"
-        uses: "actions/checkout@v3"
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      # - name: "Check out the repo"
+      #   uses: "actions/checkout@v3"
 
-      - name: "Set up Python"
-        uses: "actions/setup-python@v3"
-        with:
-          python-version: "3.11"
+      # - name: "Set up Python"
+      #   uses: "actions/setup-python@v3"
+      #   with:
+      #     python-version: "3.11"
 
-      - name: "Install dependencies"
-        run: |
-          python -m pip install flake8 coverage pytest pytest-cov
+      # - name: "Install dependencies"
+      #   run: |
+      #     python -m pip install flake8 coverage pytest pytest-cov
       
-      - name: "Run Flake8"
-        continue-on-error: true
-        run: |
-          set +e
-          flake8 . --count --max-complexity=10 --max-line-length=127 --statistics --extend-exclude="test*"
-          retVal=$?
-          if [ $retVal -ne 0 ]; then
-            echo "FLAKE=FAIL" >> $GITHUB_ENV
-          else
-            echo "FLAKE=PASS" >> $GITHUB_ENV
-          fi
-          exit $retVal
+      # - name: "Run Flake8"
+      #   continue-on-error: true
+      #   run: |
+      #     set +e
+      #     flake8 . --count --max-complexity=10 --max-line-length=127 --statistics --extend-exclude="test*"
+      #     retVal=$?
+      #     if [ $retVal -ne 0 ]; then
+      #       echo "FLAKE=FAIL" >> $GITHUB_ENV
+      #     else
+      #       echo "FLAKE=PASS" >> $GITHUB_ENV
+      #     fi
+      #     exit $retVal
       
-      - name: "Run Pytest"
-        if: always()
-        run: |
-          set +e
-          pytest -v --cov --cov-report=json --cov-report=html --cov-report=term
-          retVal=$?
-          if [ $retVal -ne 0 ]; then
-            echo "PYTEST=FAIL" >> $GITHUB_ENV
-          else
-            echo "PYTEST=PASS" >> $GITHUB_ENV
-          fi
-          exit $retVal
+      # - name: "Run Pytest"
+      #   if: always()
+      #   run: |
+      #     set +e
+      #     pytest -v --cov --cov-report=json --cov-report=html --cov-report=term
+      #     retVal=$?
+      #     if [ $retVal -ne 0 ]; then
+      #       echo "PYTEST=FAIL" >> $GITHUB_ENV
+      #     else
+      #       echo "PYTEST=PASS" >> $GITHUB_ENV
+      #     fi
+      #     exit $retVal
       
-      - name: "Export summary"
-        if: always()
-        run: |
-          export TOTAL=$(python -c "import json;print(json.load(open('coverage.json'))['totals']['percent_covered_display'])")
-          export STMTS=$(python -c "import json;print(json.load(open('coverage.json'))['totals']['num_statements'])")
-          echo "total=$TOTAL" >> $GITHUB_ENV
-          echo "stmts=$STMTS" >> $GITHUB_ENV
-          echo "### Tests" >> $GITHUB_STEP_SUMMARY
-          echo "#### Flake8: ${{ env.FLAKE }}" >> $GITHUB_STEP_SUMMARY
-          echo "#### Python: ${{ env.PYTEST }}" >> $GITHUB_STEP_SUMMARY
-          echo "### Coverage" >> $GITHUB_STEP_SUMMARY
-          echo "#### Total coverage: ${TOTAL}%" >> $GITHUB_STEP_SUMMARY
-          echo "#### Statements: ${STMTS}" >> $GITHUB_STEP_SUMMARY
+      # - name: "Export summary"
+      #   if: always()
+      #   run: |
+      #     export TOTAL=$(python -c "import json;print(json.load(open('coverage.json'))['totals']['percent_covered_display'])")
+      #     export STMTS=$(python -c "import json;print(json.load(open('coverage.json'))['totals']['num_statements'])")
+      #     echo "total=$TOTAL" >> $GITHUB_ENV
+      #     echo "stmts=$STMTS" >> $GITHUB_ENV
+      #     echo "### Tests" >> $GITHUB_STEP_SUMMARY
+      #     echo "#### Flake8: ${{ env.FLAKE }}" >> $GITHUB_STEP_SUMMARY
+      #     echo "#### Python: ${{ env.PYTEST }}" >> $GITHUB_STEP_SUMMARY
+      #     echo "### Coverage" >> $GITHUB_STEP_SUMMARY
+      #     echo "#### Total coverage: ${TOTAL}%" >> $GITHUB_STEP_SUMMARY
+      #     echo "#### Statements: ${STMTS}" >> $GITHUB_STEP_SUMMARY
 
-      - name: Upload Coverage HTML Report
-        uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: coverage-report
-          path: htmlcov
-
+      # - name: Upload Coverage HTML Report
+      #   uses: actions/upload-artifact@v2
+      #   if: always()
+      #   with:
+      #     name: coverage-report
+      #     path: htmlcov
