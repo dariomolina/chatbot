@@ -65,7 +65,7 @@ jobs:
       - name: Build docker-compose
         run: docker-compose build
       - name: run tests
-        run: docker-compo run pytest -v --cov --cov-report=json --cov-report=html --cov-report=term
+        run: docker-compose run pytest -v --cov --cov-report=json --cov-report=html --cov-report=term
       # - name: "Check out the repo"
       #   uses: "actions/checkout@v3"
 
