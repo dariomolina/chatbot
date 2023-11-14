@@ -26,7 +26,7 @@ jobs:
         run: |
           pip install -r requirements/local.txt
           pip install pytest
-        working-directory: .
+        working-directory: ./app
       # - name: "Check out the repo"
       #   uses: "actions/checkout@v3"
 
