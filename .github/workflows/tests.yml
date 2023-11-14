@@ -63,11 +63,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build docker-compose
-        run: docker-compose build
+        run: docker-compose up -d --build
       - name: run tests
         run: |
-          docker-compose run --service-ports chatbot pip install pytest
-          docker-compose run --service-ports chatbot pytest -v --cov --cov-report=json --cov-report=html --cov-report=term
+          docker exec -it chatbot bash
+          cd app
+          pip install pytest
+          pytest -v --cov --cov-report=json --cov-report=html --cov-report=term
       # - name: "Check out the repo"
       #   uses: "actions/checkout@v3"
 
