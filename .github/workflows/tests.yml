@@ -65,11 +65,8 @@ jobs:
       - name: Build docker-compose
         run: docker-compose up -d --build
       - name: run tests cambiar acá
-        run: |
-          docker exec -it chatbot bash
-          cd app
-          pip install pytest
-          pytest -v --cov --cov-report=json --cov-report=html --cov-report=term
+        run:
+          docker-compose exec chatbot bash -c "cd app && pip install pytest && pytest -v --cov --cov-report=json --cov-report=html --cov-report=term"
       # - name: "Check out the repo"
       #   uses: "actions/checkout@v3"
 
