@@ -68,7 +68,7 @@ jobs:
       - name: Ejecuta tests en el contenedor
         id: run_tests
         run: |
-          TEST_OUTPUT=$(docker-compose run chatbot /bin/bash -c "cd app && pip install pytest && pytest -v --cov --cov-report=json --cov-report=html --cov-report=term" 2>&1)
+          TEST_OUTPUT=$(docker-compose run chatbot /bin/bash -c "cd app && pip install pytest && pytest -v --cov --cov-report=json --cov-report=html --cov-report=term" 2>&1 | tee /dev/tty)
           echo "TEST_OUTPUT=$TEST_OUTPUT" >> $GITHUB_ENV
 
       - name: Muestra la salida
