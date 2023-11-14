@@ -63,10 +63,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build docker-compose
-        run: docker-compose up -d --build
-      - name: run tests cambiar acá
-        run:
-          docker-compose exec --no-TTY --rm chatbot bash -c "cd app && pip install pytest && pytest -v --cov --cov-report=json --cov-report=html --cov-report=term"
+        run: docker-compose up chatbot -d --build
+
+      - name: Ejecuta tests en el contenedor
+        id: run_tests
+        run: |
+          TEST_OUTPUT=$(docker-compose exec chatbot /bin/bash -c "cd app && pip install pytest && pytest -v --cov --cov-report=json --cov-report=html --cov-report=term" 2>&1)
+          echo "TEST_OUTPUT=$TEST_OUTPUT" >> $GITHUB_ENV
+
+      - name: Muestra la salida
+        run: echo "${{ env.TEST_OUTPUT }}"
+
+        
+      # - name: run tests cambiar acá
+      #   run:
+      #     docker-compose exec --no-TTY --rm chatbot bash -c "cd app && pip install pytest && pytest -v --cov --cov-report=json --cov-report=html --cov-report=term"
+      # - name: Stop containers
+      #   run: docker-compose down
+
+        
       # - name: "Check out the repo"
       #   uses: "actions/checkout@v3"
 
