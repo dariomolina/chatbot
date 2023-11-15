@@ -2,31 +2,20 @@ name: tests
 run-name: run tests
 
 on:
-  push:
+  # push:
   pull_request:
+    branches: 
+      - develop
+      - staging
+    types: [opened, synchrinize, reopened]
+    # paths:
+    #   - "**.py"
 
 defaults:
   run:
     shell: bash
 
 jobs:
-  # build-docker-image:
-  #   runs-on: ubuntu-latest
-  #   #needs: tests
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #     - name: Build docker-compose
-  #       run: docker-compose up -d --build chatbot
-  #     - name: Ejecuta tests en el contenedor
-  #       id: run_tests
-  #       run: |
-  #         TEST_OUTPUT=$(docker-compose run chatbot /bin/bash -c "cd app && pip install pytest && pytest -v --cov --cov-report=json --cov-report=html --cov-report=term" 2>&1)
-  #         echo "TEST_OUTPUT=$TEST_OUTPUT" >> $GITHUB_ENV
-  #     - name: Muestra la salida
-  #       run: echo "${{ env.TEST_OUTPUT }}"
-  #     - name: Stop containers
-  #       run: docker-compose down
   tests:
     name: "Python 3.11 on ubuntu-latest"
     runs-on: ubuntu-latest
