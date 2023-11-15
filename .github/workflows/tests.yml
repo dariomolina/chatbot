@@ -43,6 +43,18 @@ jobs:
           pip install -r requirements.txt
           pip install pytest coverage pytest-cov
         working-directory: ./app
+      - name: "Run Flake8"
+        continue-on-error: true
+        run: |
+          set +e
+          flake8 . --count --max-complexity=10 --max-line-length=127 --statistics --extend-exclude="test*"
+          retVal=$?
+          if [ $retVal -ne 0 ]; then
+            echo "FLAKE=FAIL" >> $GITHUB_ENV
+          else
+            echo "FLAKE=PASS" >> $GITHUB_ENV
+          fi
+          exit $retVal
       - name: "Run Pytest"
         if: always()
         run: |
@@ -63,6 +75,7 @@ jobs:
           echo "total=$TOTAL" >> $GITHUB_ENV
           echo "stmts=$STMTS" >> $GITHUB_ENV
           echo "### Tests" >> $GITHUB_STEP_SUMMARY
+          echo "#### Flake8: ${{ env.FLAKE }}" >> $GITHUB_STEP_SUMMARY
           echo "#### Python: ${{ env.PYTEST }}" >> $GITHUB_STEP_SUMMARY
           echo "### Coverage" >> $GITHUB_STEP_SUMMARY
           echo "#### Total coverage: ${TOTAL}%" >> $GITHUB_STEP_SUMMARY
