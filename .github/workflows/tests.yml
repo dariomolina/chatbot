@@ -1,5 +1,5 @@
 name: tests
-run-name: run tests
+run-name: run tests in $GITHUB_REF
 
 on:
   push:
