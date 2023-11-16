@@ -29,7 +29,6 @@ jobs:
           echo "env_name=$name" >> $GITHUB_OUTPUT
     outputs:
       env_name: ${{ steps.branch_check.outputs.env_name }}
-
   build-and-push:
     name: Build and push
     needs: select_environment
