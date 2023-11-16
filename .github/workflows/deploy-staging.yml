@@ -3,12 +3,11 @@ run-name: run tests
 
 on:
   push:
-    branches: 
+    branches:
       - develop
 defaults:
   run:
     shell: bash
-
 jobs:
 
   select_environment:
