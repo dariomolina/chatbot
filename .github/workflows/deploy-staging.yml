@@ -36,6 +36,6 @@ jobs:
     environment: ${{ needs.select_environment.outputs.env_name }}
     steps:
       - name: deploy to staging
-      - run: |
+        run: |
           pwd
           cd ~/chatbot && git pull origin develop
