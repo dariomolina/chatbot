@@ -1,0 +1,62 @@
+name: deploy
+run-name: run tests
+
+on:
+  push:
+    branches: 
+      - develop
+defaults:
+  run:
+    shell: bash
+
+jobs:
+
+  select_environment:
+    name: Select Environment
+    runs-on: [self-hosted, aws]
+    steps:
+      - name: Check branch
+        id: branch_check
+        run: |
+          echo "Running on branch ${{ github.ref_name }}"
+          case ${{ github.ref_name }} in
+            main)
+              name=Main
+              ;;
+            staging)
+              name=Staging
+              ;;
+            develop)
+              name=Develop
+              ;;
+          esac
+          echo "selected environment: $name"
+          echo "env_name=$name" >> $GITHUB_OUTPUT
+    outputs:
+      env_name: ${{ steps.branch_check.outputs.env_name }}
+
+  build-and-push:
+    name: Build and push
+    needs: select_environment
+    runs-on: [self-hosted, aws]
+    environment: ${{ needs.select_environment.outputs.env_name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+
+  tests:
+    name: "Python 3.11 on ubuntu-latest"
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Get branch name
+        run: echo "Branch name $(echo $GITHUB_REF | awk -F/ '{print $3}')"
