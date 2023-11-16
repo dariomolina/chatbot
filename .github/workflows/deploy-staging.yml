@@ -35,7 +35,7 @@ jobs:
     runs-on: self-hosted
     environment: ${{ needs.select_environment.outputs.env_name }}
     steps:
-      - run: ls #cd chatbot && git pull origin develop
+      - run: pwd #cd chatbot && git pull origin develop
 
         
 
