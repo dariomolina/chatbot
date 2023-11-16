@@ -41,22 +41,17 @@ jobs:
     runs-on: [self-hosted, aws]
     environment: ${{ needs.select_environment.outputs.env_name }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      # - name: Checkout
+      #   uses: actions/checkout@v3
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_ROL_IAM }}
+          aws-region: us-east-2
 
-
-  tests:
-    name: "Python 3.11 on ubuntu-latest"
-    runs-on: ubuntu-latest
-    steps:
-      
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Get branch name
-        run: echo "Branch name $(echo $GITHUB_REF | awk -F/ '{print $3}')"
