@@ -1,4 +1,4 @@
-name: deploy
+name: develop-deploy
 
 on:
   push:
@@ -18,15 +18,20 @@ jobs:
           echo "Running on branch ${{ github.ref_name }}"
           case ${{ github.ref_name }} in
             main)
-              name=Main
+              name=main
               ;;
             develop)
-              name=Develop
+              name=develop
+              ;;
+            *)
+              echo "Branch not allowed."
+              exit 1
               ;;
           esac
           echo "selected environment: $name"
           echo "env_name=$name" >> $GITHUB_OUTPUT
-  
+          echo "::set-output name=branch-name::$name"
+
   test_build_docker:
     name: building docker-compose
     runs-on: ubuntu-latest
@@ -54,14 +59,15 @@ jobs:
       - select_environment
       - test_build_docker
     steps:
-      - name: pulling to staging 
+      - name: pull changes
         run: |
-            pwd
-            echo "Current directory: $(pwd)"
-            cd ~/chatbot
-            echo "Pulling changes from origin/develop..."
-            if ! git pull origin develop; then
-              echo "Error: Git pull failed."
-              exit 1
-            fi
-            echo "Git pull completed. Current commit: $(git rev-parse HEAD)"
+          echo "Branch name received: ${{ needs.select_environment.outputs['branch-name'] }}"
+          pwd
+          echo "Current directory: $(pwd)"
+          cd ~/chatbot
+          echo "Pulling changes from origin/staging..."
+          if ! git pull origin ${{ needs.validar-branch.outputs['branch-name'] }}; then
+            echo "Error: Git pull failed."
+            exit 1
+          fi
+          echo "Git pull completed. Current commit: $(git rev-parse HEAD)"
