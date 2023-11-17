@@ -18,10 +18,10 @@ jobs:
           echo "Running on branch ${{ github.ref_name }}"
           case ${{ github.ref_name }} in
             main)
-              name=main
+              name=Main
               ;;
             develop)
-              name=develop
+              name=Develop
               ;;
             *)
               echo "Branch not allowed."
@@ -29,8 +29,8 @@ jobs:
               ;;
           esac
           echo "selected environment: $name"
-          echo "env_name=$name" >> $GITHUB_OUTPUT
-          echo "::set-output name=branch-name::$name"
+          # echo "env_name=$name" >> $GITHUB_OUTPUT
+          echo "branch_name=$name" >> $GITHUB_ENV
 
   test_build_docker:
     name: building docker-compose
