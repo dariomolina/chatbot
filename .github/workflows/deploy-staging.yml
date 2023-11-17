@@ -8,29 +8,6 @@ defaults:
   run:
     shell: bash
 jobs:
-  select_environment:
-    name: Select Environment
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check branch
-        id: branch_check
-        run: |
-          echo "Running on branch ${{ github.ref_name }}"
-          case ${{ github.ref_name }} in
-            main)
-              name=Main
-              ;;
-            develop)
-              name=Develop
-              ;;
-            *)
-              echo "Branch not allowed."
-              exit 1
-              ;;
-          esac
-          echo "selected environment: $name"
-          # echo "env_name=$name" >> $GITHUB_OUTPUT
-          echo "branch_name=$name" >> $GITHUB_OUTPUT
 
   test_build_docker:
     name: building docker-compose
@@ -56,17 +33,35 @@ jobs:
     name: deploy to staging
     runs-on: self-hosted
     needs:
-      - select_environment
       - test_build_docker
     steps:
+      - name: Check branch
+        id: branch_check
+        run: |
+          echo "Running on branch ${{ github.ref_name }}"
+          case ${{ github.ref_name }} in
+            main)
+              name=Main
+              ;;
+            develop)
+              name=Develop
+              ;;
+            *)
+              echo "Branch not allowed."
+              exit 1
+              ;;
+          esac
+          echo "selected environment: $name"
+          # echo "env_name=$name" >> $GITHUB_OUTPUT
+          echo "BRANCH_NAME=$name" >> $GITHUB_OUTPUT
       - name: pull changes
         run: |
-          echo "Branch name received: ${{ needs.select_environment.outputs['branch-name'] }}"
+          echo "Branch name received: $BRANCH_NAME"
           pwd
           echo "Current directory: $(pwd)"
           cd ~/chatbot
-          echo "Pulling changes from origin/staging..."
-          if ! git pull origin ${{ needs.validar-branch.outputs['branch-name'] }}; then
+          echo "Pulling changes from origin/$BRANCH_NAME..."
+          if ! git pull origin $BRANCH_NAME; then
             echo "Error: Git pull failed."
             exit 1
           fi
