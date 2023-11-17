@@ -53,10 +53,10 @@ jobs:
   deploy:
     name: deploy to staging
     needs: 
-      - select_environment
+    #  - select_environment
       - test_build_docker
     runs-on: self-hosted
-    environment: ${{ needs.select_environment.outputs.env_name }}
+    #environment: ${{ needs.select_environment.outputs.env_name }}
     steps:
       - name: pull to staging
         run: |
