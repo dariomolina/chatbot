@@ -41,10 +41,10 @@ jobs:
           echo "Running on branch ${{ github.ref_name }}"
           case ${{ github.ref_name }} in
             main)
-              name=Main
+              name=main
               ;;
             develop)
-              name=Develop
+              name=develop
               ;;
             *)
               echo "Branch not allowed."
@@ -61,7 +61,7 @@ jobs:
           echo "Current directory: $(pwd)"
           cd ~/chatbot
           echo "Pulling changes from origin/${{ env.BRANCH_NAME }}..."
-          if ! git pull origin $BRANCH_NAME; then
+          if ! git pull origin ${{ env.BRANCH_NAME }}; then
             echo "Error: Git pull failed."
             exit 1
           fi
