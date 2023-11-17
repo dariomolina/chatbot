@@ -1,5 +1,4 @@
 name: deploy
-run-name: run tests
 
 on:
   push:
@@ -27,8 +26,6 @@ jobs:
           esac
           echo "selected environment: $name"
           echo "env_name=$name" >> $GITHUB_OUTPUT
-    outputs:
-      env_name: ${{ steps.branch_check.outputs.env_name }}
   
   test_build_docker:
     name: building docker-compose
@@ -44,20 +41,32 @@ jobs:
         run: |
           container_status=$(docker-compose ps -q)
           if [ -z "$container_status" ]; then
-            echo "Container failed to start."
+            echo "Error: Container failed to start."
             exit 1
           else
             echo "Container is running."
           fi
+
 
   deploy:
     name: deploy to staging
     needs: select_environment
     #  - test_build_docker
     runs-on: self-hosted
-    environment: ${{ needs.select_environment.outputs.env_name }}
     steps:
       - name: pulling to staging 
         run: |
-          pwd
-          cd ~/chatbot && git pull origin develop
+          # echo "Current directory: $(pwd)"
+          # cd ~/chatbot
+          # echo "Pulling changes from origin/develop..."
+          # git pull origin develop
+          # echo "Git pull completed."
+          - name: pulling to staging 
+            echo "Current directory: $(pwd)"
+            cd ~/chatbot
+            echo "Pulling changes from origin/develop..."
+            if ! git pull origin develop; then
+              echo "Error: Git pull failed."
+              exit 1
+            fi
+            echo "Git pull completed. Current commit: $(git rev-parse HEAD)"
