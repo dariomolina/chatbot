@@ -56,12 +56,7 @@ jobs:
     steps:
       - name: pulling to staging 
         run: |
-          # echo "Current directory: $(pwd)"
-          # cd ~/chatbot
-          # echo "Pulling changes from origin/develop..."
-          # git pull origin develop
-          # echo "Git pull completed."
-          - name: pulling to staging 
+            pwd
             echo "Current directory: $(pwd)"
             cd ~/chatbot
             echo "Pulling changes from origin/develop..."
