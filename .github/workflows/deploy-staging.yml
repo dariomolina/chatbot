@@ -32,7 +32,7 @@ jobs:
   build-and-push:
     name: Build and push
     needs: select_environment
-    runs-on: [self-hosted, aws]
+    runs-on: [self-hosted]
     environment: ${{ needs.select_environment.outputs.env_name }}
     steps:
       - name: deploy to staging
