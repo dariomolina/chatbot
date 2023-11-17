@@ -49,7 +49,7 @@ jobs:
 
   deploy:
     name: deploy to staging
-    runs-on: [self-hosted, aws]
+    runs-on: self-hosted
     needs:
       - select_environment
       - test_build_docker
