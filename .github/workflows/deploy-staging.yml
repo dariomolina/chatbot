@@ -47,13 +47,12 @@ jobs:
             echo "Container is running."
           fi
 
-
   deploy:
     name: deploy to staging
-    needs: 
+    runs-on: [self-hosted, aws]
+    needs:
       - select_environment
       - test_build_docker
-    runs-on: self-hosted
     steps:
       - name: pulling to staging 
         run: |
