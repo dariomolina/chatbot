@@ -29,13 +29,35 @@ jobs:
           echo "env_name=$name" >> $GITHUB_OUTPUT
     outputs:
       env_name: ${{ steps.branch_check.outputs.env_name }}
-  build-and-push:
-    name: Build and push
-    needs: select_environment
+  
+  test_build_docker:
+    name: building docker-compose
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build docker-compose
+        run: |
+          cd ~/chatbot
+          docker-compose build
+          docker-compose up -d
+      - name: Check if container is running
+        run: |
+          container_status=$(docker-compose ps -q)
+          if [ -z "$container_status" ]; then
+            echo "Container failed to start."
+            exit 1
+          else
+            echo "Container is running."
+          fi
+
+  deploy:
+    name: deploy to staging
+    needs: [select_environment, test_build_docker]
     runs-on: [self-hosted]
     environment: ${{ needs.select_environment.outputs.env_name }}
     steps:
-      - name: deploy to staging
+      - name: pull to staging
         run: |
           pwd
           cd ~/chatbot && git pull origin develop
