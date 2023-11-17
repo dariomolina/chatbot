@@ -53,14 +53,14 @@ jobs:
           esac
           echo "selected environment: $name"
           # echo "env_name=$name" >> $GITHUB_OUTPUT
-          echo "BRANCH_NAME=$name" >> $GITHUB_OUTPUT
+          echo "BRANCH_NAME=$name" >> $GITHUB_ENV
       - name: pull changes
         run: |
-          echo "Branch name received: $BRANCH_NAME"
+          echo "Branch name received: ${{ env.BRANCH_NAME }}"
           pwd
           echo "Current directory: $(pwd)"
           cd ~/chatbot
-          echo "Pulling changes from origin/$BRANCH_NAME..."
+          echo "Pulling changes from origin/${{ env.BRANCH_NAME }}..."
           if ! git pull origin $BRANCH_NAME; then
             echo "Error: Git pull failed."
             exit 1
