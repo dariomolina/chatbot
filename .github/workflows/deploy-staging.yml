@@ -30,7 +30,7 @@ jobs:
           esac
           echo "selected environment: $name"
           # echo "env_name=$name" >> $GITHUB_OUTPUT
-          echo "branch_name=$name" >> $GITHUB_ENV
+          echo "branch_name=$name" >> $GITHUB_OUTPUT
 
   test_build_docker:
     name: building docker-compose
